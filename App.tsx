@@ -5,6 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { supabase, SUPABASE_CONFIGURED } from './src/lib/supabaseClient';
 import type { Session, AuthError } from '@supabase/supabase-js';
+import { DeliveryProvider } from './src/context/DeliveryContext';
+import { AuthProvider } from './src/context/AuthContext';
 
 export default function App() {
   useEffect(() => {
@@ -25,8 +27,12 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <StatusBar style="light" />
-        <RootNavigator />
+        <AuthProvider>
+          <DeliveryProvider>
+            <StatusBar style="light" />
+            <RootNavigator />
+          </DeliveryProvider>
+        </AuthProvider>
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );

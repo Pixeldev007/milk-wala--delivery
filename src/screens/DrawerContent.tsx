@@ -23,7 +23,7 @@ export const DrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
       <DrawerItem icon="home" label="Dashboard" onPress={() => props.navigation.navigate('Dashboard' as never)} />
       <DrawerItem icon="car" label="My Pickup" onPress={() => props.navigation.navigate('MyPickup' as never)} />
       <DrawerItem icon="cart" label="Daily Sell" onPress={() => props.navigation.navigate('DailySell' as never)} />
-      <DrawerItem icon="list" label="Bulk Sell" onPress={() => props.navigation.navigate('BulkSell' as never)} />
+      <DrawerItem icon="bus" label="My Delivery" onPress={() => props.navigation.navigate('MyDelivery' as never)} />
       <DrawerItem icon="star" label="Rate Us" onPress={() => {}} />
       <DrawerItem icon="log-out" label="Logout" onPress={() => {}} />
 

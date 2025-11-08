@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Colors } from '../theme/colors';
 
-export type Day = { label: string; sub?: string };
+export type Day = { label: string; sub?: string; value: string };
 
 type Props = {
   days: Day[];

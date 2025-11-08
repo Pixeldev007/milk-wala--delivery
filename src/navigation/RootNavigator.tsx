@@ -4,12 +4,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DashboardScreen } from '../screens/DashboardScreen';
 import { DailySellScreen } from '../screens/DailySellScreen';
-import { BulkSellScreen } from '../screens/BulkSellScreen';
 import { MyPickupScreen } from '../screens/MyPickupScreen';
 import { DrawerContent } from '../screens/DrawerContent';
 import { BillScreen } from '../screens/BillScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { Colors } from '../theme/colors';
+import { MyDeliveryScreen } from '../screens/MyDeliveryScreen';
+import { QRScanScreen } from '../screens/auth/QRScanScreen';
+import { RoleSelectScreen } from '../screens/auth/RoleSelectScreen';
+import { NamePhoneLoginScreen } from '../screens/auth/NamePhoneLoginScreen';
+import { useAuth } from '../context/AuthContext';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -32,8 +36,8 @@ function DrawerRoot() {
     <Drawer.Navigator screenOptions={{ headerShown: false }} drawerContent={(p) => <DrawerContent {...p} /> }>
       <Drawer.Screen name="Dashboard" component={DashboardScreen} />
       <Drawer.Screen name="DailySell" component={DailySellScreen} />
-      <Drawer.Screen name="BulkSell" component={BulkSellScreen} />
       <Drawer.Screen name="MyPickup" component={MyPickupScreen} />
+      <Drawer.Screen name="MyDelivery" component={MyDeliveryScreen} />
       <Drawer.Screen name="Bill" component={BillScreen} />
       <Drawer.Screen name="Settings" component={SettingsScreen} />
     </Drawer.Navigator>
@@ -41,10 +45,20 @@ function DrawerRoot() {
 }
 
 export function RootNavigator() {
+  const { role } = useAuth();
+  const isLoggedIn = !!role;
   return (
     <NavigationContainer theme={AppTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Main" component={DrawerRoot} />
+        {!isLoggedIn ? (
+          <>
+            <Stack.Screen name="QRScan" component={QRScanScreen} />
+            <Stack.Screen name="RoleSelect" component={RoleSelectScreen} />
+            <Stack.Screen name="NamePhoneLogin" component={NamePhoneLoginScreen} />
+          </>
+        ) : (
+          <Stack.Screen name="Main" component={DrawerRoot} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
